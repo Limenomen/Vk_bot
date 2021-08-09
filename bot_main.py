@@ -1,4 +1,3 @@
-from logging import error
 import requests
 from vk_api import longpoll
 from vk_api.bot_longpoll import VkBotEventType

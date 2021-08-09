@@ -85,6 +85,7 @@ class vk_bot():
 def main():
     bot = vk_bot(api_key=api_key)
     
+    
 
 
 if __name__ == "__main__":

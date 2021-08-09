@@ -44,6 +44,7 @@ class vk_bot():
         user_id = event.obj.peer_id
         message_text = event.obj.text
 
+
         # Находим слово-команду в начале строки:
         plugin = None
         try:

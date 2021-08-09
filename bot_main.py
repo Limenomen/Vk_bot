@@ -8,6 +8,7 @@ from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from plugins.base_plugin import Plugin
 from plugins.plugin_list import plugin_list
 from re import match
+from threading import Thread, current_thread
 
 
 class vk_bot():
@@ -44,7 +45,6 @@ class vk_bot():
         user_id = event.obj.peer_id
         message_text = event.obj.text
 
-
         # Находим слово-команду в начале строки:
         plugin = None
         try:
@@ -57,7 +57,9 @@ class vk_bot():
         except Exception as e:
             self.send_message(user_id, "Извините, такой команды пока нет(.")
         if plugin:
-            self.plugin_starter(plugin, event)
+            plugin_starter_thread = Thread(
+                target=self.plugin_starter, args=(plugin, event), daemon=True)
+            plugin_starter_thread.start()
 
     def plugin_starter(self, plugin, event):
         """
@@ -69,12 +71,14 @@ class vk_bot():
                 input = input.replace(f'{command}', '')
         input = input.replace(' ', '')
         self.send_message(event.obj.peer_id, plugin.start(input))
+        #print(current_thread())
         pass
 
     def send_message(self, user_id, message):
         """
         Функция для отправки сообщения
         """
+        #print(current_thread())
         self.vk.messages.send(
             user_id=user_id, message=message, random_id=get_random_id())
 
@@ -85,8 +89,6 @@ class vk_bot():
 
 def main():
     bot = vk_bot(api_key=api_key)
-    
-    
 
 
 if __name__ == "__main__":

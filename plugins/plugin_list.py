@@ -1,5 +1,7 @@
 from plugins.base_plugin import Plugin
 from plugins.weather import weather_plugin
+from plugins.badwords import badwords_plugin
+
 
 def plugin_list() -> list:
     

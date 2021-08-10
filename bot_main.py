@@ -9,6 +9,7 @@ from plugins.base_plugin import Plugin
 from plugins.plugin_list import plugin_list
 from re import match
 from threading import Thread, current_thread
+from plugins.badwords import badwords_plugin
 
 
 class vk_bot():
@@ -44,7 +45,6 @@ class vk_bot():
         """
         Обработчик события входящего сообщения
         """
-        user_id = event.obj.peer_id
         message_text = event.obj.text
 
         # Находим слово-команду в начале строки:
@@ -57,7 +57,7 @@ class vk_bot():
                 if match(rf"{command}", message_text.lower())
             )
         except Exception as e:
-            self.send_message(user_id, "Извините, такой команды пока нет(.")
+            self.plugin_starter(badwords_plugin, event)
         if plugin:
             self.plugin_starter(plugin, event)
 

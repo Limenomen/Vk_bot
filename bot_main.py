@@ -28,12 +28,9 @@ class VkBot():
         while True:
             try:
                 for event in self.longpoll.listen():
-
                     event_handler_thread = Thread(
                         target=self.event_handler, args=(event,), daemon=True)
-
                     event_handler_thread.start()
-                    
             except requests.exceptions.ConnectionError as e:
                 print(f'ошибка: {e}, переподключаюсь')
                 self.reconnection()
@@ -62,7 +59,7 @@ class VkBot():
             )
         except Exception as e:
             self.plugin_starter(BadWordsPlugin, event)
-
+            
         if plugin:
             self.plugin_starter(plugin, event)
 
@@ -70,12 +67,10 @@ class VkBot():
         """
         метод для запуска плагинов
         """
-        input = event.obj.text.lower().strip
-
+        input = event.obj.text.lower()
         for command in plugin.get_commands().split("|"):
             if match(rf"{command}", input):
                 input = input.replace(f'{command}', '')
-
         input = input.strip()
         self.send_message(event.obj.peer_id, plugin.start(input))        
 

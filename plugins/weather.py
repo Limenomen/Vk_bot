@@ -4,7 +4,7 @@ from plugins.base_plugin import Plugin
 import re
 from threading import current_thread
 
-class weather_plugin(Plugin):
+class WeatherPlugin(Plugin):
     __plugin_name__ = "weather"
     __plugin_commands__ = ('погода в', 'погода')
     API_key = "f3a700d25f54653a8dea83dc569c11ab"

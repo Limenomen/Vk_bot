@@ -4,7 +4,7 @@ from random import randint
 from re import match, search
 
 
-class badwords_plugin(Plugin):
+class BadWordsPlugin(Plugin):
     __plugin_name__ = "chat"
     badwords = []
     def __init__(self):

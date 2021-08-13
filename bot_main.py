@@ -1,14 +1,11 @@
 import requests
-from vk_api import longpoll
-from vk_api.bot_longpoll import VkBotEventType
 from settings import api_key, group_id
 import vk_api
 from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
-from plugins.base_plugin import Plugin
 from plugins.plugin_list import plugin_list
 from re import match
-from threading import Thread, current_thread
+from threading import Thread
 from plugins.badwords import BadWordsPlugin
 
 
@@ -57,7 +54,7 @@ class VkBot():
                 for command in plugin.get_commands().split("|")
                 if match(rf"{command}", message_text.lower())
             )
-        except Exception as e:
+        except Exception:
             self.plugin_starter(BadWordsPlugin, event)
             
         if plugin:

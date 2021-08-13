@@ -1,13 +1,12 @@
 from plugins.base_plugin import Plugin
 import requests
 from plugins.base_plugin import Plugin
-import re
-from threading import current_thread
+from plugins.keys import weather_api_key as API_key
 
 class WeatherPlugin(Plugin):
     __plugin_name__ = "weather"
     __plugin_commands__ = ('погода в', 'погода')
-    API_key = "f3a700d25f54653a8dea83dc569c11ab"
+    API_key = API_key    
     
     def __init__(self):
         Plugin.__init__(self)
@@ -24,5 +23,4 @@ class WeatherPlugin(Plugin):
         data = result.json()
         temperature = data['main'].get('temp')
         sky = data['weather'][0].get('description')
-        #print(current_thread())
         return(f"температура в городе {data['name']} сейчас: {temperature:.01f}, {sky}")

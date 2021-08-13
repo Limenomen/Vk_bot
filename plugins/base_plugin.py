@@ -1,4 +1,7 @@
 class Plugin():
+    """
+    Базовый шаблон для плагинов
+    """
     __plugin_name__ = str()
     __plugin_commands__ = tuple()
 
